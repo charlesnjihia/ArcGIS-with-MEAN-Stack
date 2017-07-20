@@ -1,0 +1,67 @@
+<div class="modal-dialog">
+                <div class="modal-content">
+                   <div class="modal-header">
+                     <button type="button" class="close" (click)="close()">&times;</button>
+                     <h4 class="modal-title">{{title || 'Prompt'}}</h4>
+                   </div>
+				    <form (ngSubmit)="onAddDetails()" #detailsForm="ngForm">
+                   <div class="modal-body">				  
+				   <div class="form-group">
+                    <input type="text" class="form-control" required
+                     pattern="[a-zA-Z][a-zA-Z ]+" [(ngModel)]="newDonor.first_name" name="firstname" placeholder="First Name"  #firstname="ngModel">
+							<div [hidden]="firstname.valid || firstname.pristine"
+							  class="alert alert-danger">
+								  <div [hidden]="!firstname.hasError('required')">First Name is required</div>
+								  <div [hidden]="!firstname.hasError('pattern')">Only alphabets allowed</div>
+						   </div> 
+					</div>
+                    <div class="form-group">					
+					<input type="text" class="form-control" required
+                     pattern="[a-zA-Z][a-zA-Z ]+" [(ngModel)]="newDonor.last_name" name="lastname"  placeholder="Last Name" #lastname="ngModel" >
+							<div [hidden]="lastname.valid || lastname.pristine"
+							class="alert alert-danger">
+								<div [hidden]="!lastname.hasError('required')">Last Name is required</div>
+								<div [hidden]="!lastname.hasError('pattern')">Only alphabets allowed</div>
+							</div>
+					</div> 
+					   
+					<div class="form-group">				 
+					<input type="text" class="form-control" required  pattern="^((00)|(\+))[0-9\\s.\\/-]{6,20}$" [(ngModel)]="newDonor.contact_number"  placeholder="Contact Number" name="mobile"  #mobile="ngModel">
+					   <div [hidden]="mobile.valid || mobile.pristine"
+						  class="alert alert-danger">
+						  <div [hidden]="!mobile.hasError('required')">Mobile is required</div>
+						  <div [hidden]="!mobile.hasError('pattern')">Mobile numberr should be only numbers and start with 00 or +  minimum 6 digits </div>
+					   </div>					
+					</div>
+					
+					<div class="form-group">	
+					<input type="text" class="form-control" [(ngModel)]="newDonor.email_address" name="email"   pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" 
+                    #email="ngModel" placeholder="Email Address">
+						<div [hidden]="email.valid || email.pristine"
+						   class="alert alert-danger">
+						   <div [hidden]="!email.hasError('required')">Email is required</div>
+						   <div [hidden]="!email.hasError('pattern')">Email format should be 
+							  <small><b>charles@abc.com</b></small>
+						   </div>
+						</div>					
+					</div>
+					
+					<div class="form-group">
+					<input type="text" required pattern="^(A|B|AB|O)[+-]$" class="form-control" [(ngModel)]="newDonor.blood_group" name="bloodgroup" #bloodgroup="ngModel"   placeholder="Blood Group">
+					    <div [hidden]="bloodgroup.valid || bloodgroup.pristine"
+						   class="alert alert-danger">
+						   <div [hidden]="!bloodgroup.hasError('required')">Blood Group is required</div>
+						   <div [hidden]="!bloodgroup.hasError('pattern')">Blood Group should be one of these:- 
+							  <small><b>A+,B+,AB+,A-,B-,O+,O-</b></small>
+						   </div>
+						</div>					
+					 </div>
+					 
+                   </div>
+                   <div class="modal-footer">
+                     <button type="submit" class="btn btn-primary"  [disabled]="!detailsForm.form.valid"  >Add Details</button>
+                     <button type="button" class="btn btn-default" (click)="close()" >Cancel</button>			
+                   </div>
+				   </form>
+                 </div>
+                </div>
